@@ -47,6 +47,8 @@ class Assistant:
         #The formatted summary that will be printed 
         formatted_summary = wiki_info_user
 
+        text = ""
+        
         with DDGS() as ddg:
             results = [r for r in ddg.text(ask_topic, max_results=1)]
             for r in results:
