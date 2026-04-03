@@ -78,33 +78,35 @@ class Assistant:
 
     #Method for finding definition of words 
 def FindDefinition(self, sentence): 
-    self.ds.log(f"Ai Assistant: User Requested definition(s) on {sentence}")
+        self.ds.log(f"Ai Assistant: User Requested definition(s) on {sentence}")
 
-    def_list = [] 
-    words = sentence.split()
-    for word in words:
-        word = word.lower().strip(".,!?;:")
-        url = f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}"
-
+        def_list = []
+        words = sentence.split()
+        for word in words:
+            word = word.lower().strip(".,!?;:")
+            if not word: continue # Skip empty strings
         
-        try:
-            # Adding a timeout of 5 seconds so the app doesn't hang forever
-            response = requests.get(url, timeout=5) 
-            
-            if response.status_code == 200:
-                data = response.json()
-                # Accessing the nested dictionary safely
-                definition = data[0]['meanings'][0]['definitions'][0]['definition']
-                def_list.append(f'{word}: {definition}')
-            else:
-                def_list.append(f"{word}: Definition not found.")
-        except Exception as e:
-            def_list.append(f"{word}: Error connecting to service.")
+            url = f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}"
 
-    formatted_list = [f"{i+1}. {item}" for i, item in enumerate(def_list)]
-    result = "\n".join(formatted_list)
-    self.ds.log(result, log_user_prompt=True)
-    return result 
+            try:
+                response = requests.get(url, timeout=5) 
+                
+                # Check status FIRST before trying to read the JSON data
+                if response.status_code != 200:
+                    def_list.append(f"{word}: Definition not found.")
+                else:
+                    data = response.json() 
+                    # Use the safe indexing now that we know it's a 200 OK
+                    definition = data[0]['meanings'][0]['definitions'][0]['definition']
+                    def_list.append(f'{word}: {definition}')
+            except Exception as e:
+                def_list.append(f"{word}: Error connecting to service.")
+        
+        formatted_list = [f"{i+1}. {item}" for i, item in enumerate(def_list)]
+        result = "\n".join(formatted_list)
+        self.ds.log(result, log_user_prompt=True)
+
+        return result 
 
 
 
