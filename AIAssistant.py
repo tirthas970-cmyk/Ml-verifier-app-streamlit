@@ -77,7 +77,7 @@ class Assistant:
         
 
     #Method for finding definition of words 
-def FindDefinition(self, sentence): 
+    def FindDefinition(self, sentence): 
         self.ds.log(f"Ai Assistant: User Requested definition(s) on {sentence}")
 
         def_list = []
