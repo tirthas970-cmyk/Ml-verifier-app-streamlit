@@ -7,4 +7,4 @@ torch
 scikit-learn
 joblib
 torchvision
-
+requests
