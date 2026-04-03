@@ -1,6 +1,6 @@
 streamlit
 wikipedia
-duckduckgo-search
+ddgs
 sentence-transformers
 pandas
 torch
