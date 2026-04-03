@@ -1,11 +1,13 @@
-
 from AIAssistant import Assistant
 import streamlit as st
 
 assistant = Assistant() 
 
+
+#Below is GUI for Streamlit
 st.set_page_config(page_title="MLFactCheckingbot", layout="wide")
 
+#Just background color
 st.markdown("""
     <style>
     .main { background-color: #1a1a1a; color: white; }
@@ -41,5 +43,7 @@ elif action == "Get Information on a Certain Topic":
     if st.button("ENTER"):
         generated_text = assistant.Crosscheck(topic, sentnum)
         st.success(generated_text)
+
+
 
 
