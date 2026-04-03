@@ -51,14 +51,17 @@ class Assistant:
 
         with DDGS() as ddg:
             try:
-        # Use keywords= explicitly and convert to list
-                results = list(ddg.text(keywords=ask_topic, region='wt-wt', max_results=5))
+        # Switching to 'lite' bypasses most Cloud IP blocks
+                results = list(ddg.text(keywords=ask_topic, region='wt-wt', max_results=5, backend='lite'))
+
                 if results:
-                    text = f"Snippet: {results[0].get('body', '')}\n"
+            # Safely grab the body
+                    snippet = results[0].get('body') or results[0].get('snippet', '')
+                    text = f"Snippet: {snippet}\n"
                 else:
-                    text = "No results found on DuckDuckGo."
+                    text = "DDG is currently throttling this request. Try again in 1 minute."
             except Exception as e:
-                text = f"Search failed: {e}"
+                text = f"Search Error: {e}"
         
         dataFrame = [wiki_info_user, text]
         result = cross_check_ML.LogisticRegPred(dataFrame)
