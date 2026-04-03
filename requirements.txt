@@ -6,3 +6,4 @@ pandas
 torch
 scikit-learn
 joblib
+torchdivision
