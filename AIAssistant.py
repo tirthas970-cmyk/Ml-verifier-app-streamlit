@@ -84,7 +84,8 @@ def FindDefinition(self, sentence):
     words = sentence.split()
     for word in words:
         word = word.lower().strip(".,!?;:")
-        url = f"https://dictionaryapi.dev{word}"
+        url = f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}"
+
         
         try:
             # Adding a timeout of 5 seconds so the app doesn't hang forever
