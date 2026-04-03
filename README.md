@@ -38,7 +38,15 @@ It helps any individual find verified information and definition of words or phr
   * I learned to use **Cosine Similarity** and **Logistic Regression**
 * **API Integration**: Connecting external data sources to code
 * **Object-Oriented Programming**: Understanding the Class System in Python
-* **Full-Stack Integration**: Combining frontend and backend 
+* **Full-Stack Integration**: Combining frontend and backend
+
+## Future Roadmap
+> Note: This project is considered complete, but feel free to fork the repository. This is what I would do if I were to continue development
+* **Advanced NLP**: Integrate enhanced NLP to imrpove the accuracy of semantic analysis beyond Cosine Similarity
+* **Expand Data Sources**: Integrating more diverse APIs for enhanced verification capbilities
+* **User Accounts**: Adding a history feature so users can save and revisit their previous verified information
+* **RAG Implementation**: Allows the bot to generate natural language answers grounded strictly in the verified data it retrives 
+* **Mobile Otimization**: Further refining the Streamlit UI for a better mobile experience 
 
 ## Acknowledgements 
 * Various Tutorials on **Youtube** that helped with basic ML and Cosine Similairty
