@@ -54,11 +54,21 @@ class Assistant:
             "Accept-Encoding": "gzip, deflate, br"
         }
 
-        with DDGS(headers=headers) as ddg:
-            results = list(ddg.text(ask_topic, max_results=5, region='wt-wt'))
-
-            if results:
-                text = f"Snippet: {results[0]['body']}\n"
+        with DDGS() as ddg:
+            try:
+        # Use keywords= and remove custom headers to let the lib handle it
+                results = ddg.text(keywords=ask_topic, region='wt-wt', max_results=5)
+        
+        # Check if results is a list and has content
+                if results and len(results) > 0:
+            # Use .get() to avoid KeyError if the API field name changes
+                    text = f"Snippet: {results[0].get('body', results[0].get('snippet', ''))}\n"
+                else:
+                    text = "No results found on DuckDuckGo."
+            
+            except Exception as e:
+                self.ds.log(f"DDG Search Error: {e}")
+                text = "DuckDuckGo search failed due to a connection error."
     
         dataFrame = [wiki_info_user, text]
         result = cross_check_ML.LogisticRegPred(dataFrame)
