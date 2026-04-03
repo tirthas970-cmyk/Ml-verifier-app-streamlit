@@ -78,45 +78,27 @@ class Assistant:
 
     #Method for finding definition of words 
     def FindDefinition(self, sentence): 
-    
-        #main = input sentence
-
         self.ds.log(f"Ai Assistant: User Requested definition(s) on {sentence}")
 
-        def_list = [] #word list
+        def_list = [] 
         words = sentence.split()
         for word in words:
             word = word.lower().strip(".,!,?")
-        
-            url = f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}" #API URL
-
-            response = requests.get(url) #actually gets the info 
-
-            data  = response.json() #json gets data into string form 
-
-            #data is nested, so we have to get first info:
-
-            # data[0] → The first entry found.
-            #['meanings'][0] → The first part of speech (like "noun" or "verb").
-            #['definitions'][0] → The first definition block.
-            #['definition'] → The actual sentence defining the word.
+            url = f"https://dictionaryapi.dev{word}"
+            response = requests.get(url) 
+            data = response.json() 
 
             if response.status_code != 200:
                 def_list.append(f"{word}: Definition not found.") 
                 continue
             else:
+                # API returns a list, so we need [0]
                 definition = data[0]['meanings'][0]['definitions'][0]['definition']
-         
                 def_list.append(f'{word}: {definition}')
         
-        formatted_list = [f"{i+1}. {item}" for i, item in enumerate(def_list)] #this is the formatted list
-    
-        #join them with newlines into one long string
+        formatted_list = [f"{i+1}. {item}" for i, item in enumerate(def_list)]
         result = "\n".join(formatted_list)
-    
-        # save the entire formatted block at once
         self.ds.log(result, log_user_prompt=True)
-
         return result 
 
 
