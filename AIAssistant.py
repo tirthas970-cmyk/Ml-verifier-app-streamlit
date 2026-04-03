@@ -48,11 +48,16 @@ class Assistant:
         formatted_summary = wiki_info_user
 
         text = "No additional text found"
-        
-        with DDGS() as ddg:
-            results = [r for r in ddg.text(ask_topic, max_results=1)]
-            for r in results:
-                text = f"Snippet: {r['body']}\n"
+
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" 
+        }
+
+        with DDGS(headers=headers) as ddg:
+            results = list(ddg.text(ask_topic, max_results=5))
+
+            if results:
+                text = f"Snippet: {results[0]['body']}\n"
     
         dataFrame = [wiki_info_user, text]
         result = cross_check_ML.LogisticRegPred(dataFrame)
