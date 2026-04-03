@@ -1,4 +1,4 @@
-#### High-Precision Topic Verifier Bot
+# High-Precision Topic Verifier Bot
 A Python tool to:
 1) Find Definitions: Get precise meanings for complex words or phrases.
 2) Topic Information: Verify and cross-check information on specific topics. Done through cosine similarity and machine learning!
@@ -48,8 +48,8 @@ It helps any individual find verified information and definition of words or phr
 ## Images
 <img width="1916" height="866" alt="Screenshot 2026-04-03 125820" src="https://github.com/user-attachments/assets/329e8ba6-6efb-429e-8b7c-5639b97d1a42" />
 <img width="1919" height="866" alt="Screenshot 2026-04-03 125940" src="https://github.com/user-attachments/assets/9491d3bb-0b0d-481e-b825-551c5d6ea14f" />
-<img width="1714" height="491" alt="Screenshot 2026-04-03 130116" src="https://github.com/user-attachments/assets/e6c14a59-07d8-494a-b422-0414cbb8291a" />
 <img width="1904" height="790" alt="Screenshot 2026-04-03 130107" src="https://github.com/user-attachments/assets/7fb64ccb-1054-41c5-a326-6ab207eece8b" />
+<img width="1714" height="491" alt="Screenshot 2026-04-03 130116" src="https://github.com/user-attachments/assets/e6c14a59-07d8-494a-b422-0414cbb8291a" />
 
 
 
