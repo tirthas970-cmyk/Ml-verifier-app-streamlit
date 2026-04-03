@@ -22,7 +22,7 @@ class MLCrossCheck:
         if os.path.exists(model_file):
             model = joblib.load(model_file) 
         else:
-    
+            #Loads the dataset for training
             df_train = self.cosinesimcheck.findCosineOfTrainModel()
             X_train = df_train['similarity_score']
             y_train = df_train['Quality']
@@ -51,3 +51,4 @@ class MLCrossCheck:
         predictions_score = round(predictions_val_score, 2) * 100
         
         return predictions_score
+
