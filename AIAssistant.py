@@ -101,13 +101,13 @@ class Assistant:
             #['definitions'][0] → The first definition block.
             #['definition'] → The actual sentence defining the word.
 
-            if response.status_code != 200:
-                print(f"Error: {response.status_code} - {response.text}")
+             if response.status_code != 200:
+                def_list.append(f"{word}: Definition not found.") 
                 continue
             else:
                 definition = data[0]['meanings'][0]['definitions'][0]['definition']
          
-            def_list.append(f'{word}: {definition}')
+                def_list.append(f'{word}: {definition}')
             formatted_list = [f"{i+1}. {item}" for i, item in enumerate(def_list)] #this is the formatted list
     
         #join them with newlines into one long string
