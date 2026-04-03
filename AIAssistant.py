@@ -49,29 +49,17 @@ class Assistant:
 
         text = "No additional text found"
 
-# 1. Let DDGS handle headers internally for better success rates
         with DDGS() as ddg:
             try:
-        # 2. 'keywords' is a mandatory named argument in many versions
-                results = ddg.text(keywords=ask_topic, region='wt-wt', max_results=5)
-        
-        # 3. 'results' is now a list. Check if it's not empty.
+        # Use keywords= explicitly and convert to list
+                results = list(ddg.text(keywords=ask_topic, region='wt-wt', max_results=5))
                 if results:
-            # 4. Use .get() to check for 'body' first, then 'snippet'
-                    first_result = results[0]
-                    snippet = first_result.get('body') or first_result.get('snippet') or ""
-            
-                    if snippet:
-                        text = f"Snippet: {snippet}\n"
-                    else:
-                        text = "Result found, but no text snippet was available."
+                    text = f"Snippet: {results[0].get('body', '')}\n"
                 else:
                     text = "No results found on DuckDuckGo."
-            
             except Exception as e:
-        # Log the specific error to your DataHandler for debugging
-                self.ds.log(f"DDG Search Error: {str(e)}")
-                text = f"DuckDuckGo search failed: {str(e)}"
+                text = f"Search failed: {e}"
+        
         dataFrame = [wiki_info_user, text]
         result = cross_check_ML.LogisticRegPred(dataFrame)
         result_score = cross_check_ML.PredictionScore()
