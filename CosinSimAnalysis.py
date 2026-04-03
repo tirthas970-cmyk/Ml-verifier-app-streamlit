@@ -11,7 +11,7 @@ class CosinSim:
 
     def findCosineOfTrainModel(self):
 
-        #open the file
+        #open the microsoft corpus file
         try:
             df = pd.read_csv('CrossCheckDataTrain.csv', encoding='windows-1252')
         except UnicodeDecodeError:
@@ -44,6 +44,12 @@ class CosinSim:
        df_test["Similairty_Score"] = cosine_scores_test.tolist()
 
        return df_test
+       
+
+ 
+
+    
+
        
 
  
