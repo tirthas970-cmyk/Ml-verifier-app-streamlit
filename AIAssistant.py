@@ -50,11 +50,12 @@ class Assistant:
         text = "No additional text found"
 
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" 
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+            "Accept-Encoding": "gzip, deflate, br"
         }
 
         with DDGS(headers=headers) as ddg:
-            results = list(ddg.text(ask_topic, max_results=5))
+            results = list(ddg.text(ask_topic, max_results=5, region='wt-wt'))
 
             if results:
                 text = f"Snippet: {results[0]['body']}\n"
