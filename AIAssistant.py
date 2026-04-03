@@ -52,7 +52,7 @@ class Assistant:
         with DDGS() as ddg:
             try:
         # Switching to 'lite' bypasses most Cloud IP blocks
-                results = list(ddg.text(keywords=ask_topic, region='wt-wt', max_results=5, backend='lite'))
+                results = list(ddg.text(keywords=ask_topic, region='us-en', max_results=5, backend='lite'))
 
                 if results:
             # Safely grab the body
