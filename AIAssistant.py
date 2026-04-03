@@ -54,7 +54,7 @@ class Assistant:
             try:
                 time.sleep(2)  # Critical: stops DDG from flagging you as a bot
         # Use 'lite' backend and 'keywords=' argument
-                results = list(ddg.text(keywords=ask_topic, region='uk-en', max_results=3, backend='lite'))
+                results = list(ddg.text(query=ask_topic, region='uk-en', max_results=3, backend='lite'))
         
                 if results:
             # Safely grab the first result
