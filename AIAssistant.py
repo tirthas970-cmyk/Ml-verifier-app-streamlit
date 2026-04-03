@@ -1,7 +1,7 @@
 from DataSaving import DataHandler 
 import wikipedia
 import requests
-from ddgs import DDGS
+from duckduckgo_search import DDGS
 from CrossCheckLogisticRegressionModel import MLCrossCheck
 
 
