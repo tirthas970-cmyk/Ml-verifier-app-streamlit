@@ -2,6 +2,7 @@ from DataSaving import DataHandler
 import wikipedia
 import requests
 from duckduckgo_search import DDGS
+import time
 from CrossCheckLogisticRegressionModel import MLCrossCheck
 
 
@@ -51,15 +52,17 @@ class Assistant:
 
         with DDGS() as ddg:
             try:
-        # Switching to 'lite' bypasses most Cloud IP blocks
-                results = list(ddg.text(keywords=ask_topic, region='us-en', max_results=5, backend='lite'))
-
+                time.sleep(2)  # Critical: stops DDG from flagging you as a bot
+        # Use 'lite' backend and 'keywords=' argument
+                results = list(ddg.text(keywords=ask_topic, region='us-en', max_results=3, backend='lite'))
+        
                 if results:
-            # Safely grab the body
-                    snippet = results[0].get('body') or results[0].get('snippet', '')
+            # Safely grab the first result
+                    first_res = results[0]
+                    snippet = first_res.get('body') or first_res.get('snippet', '')
                     text = f"Snippet: {snippet}\n"
                 else:
-                    text = "DDG is currently throttling this request. Try again in 1 minute."
+                    text = "DDG is throttling this IP. Try again in a few minutes."
             except Exception as e:
                 text = f"Search Error: {e}"
         
