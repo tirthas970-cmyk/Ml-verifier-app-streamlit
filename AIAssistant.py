@@ -101,7 +101,7 @@ class Assistant:
             #['definitions'][0] → The first definition block.
             #['definition'] → The actual sentence defining the word.
 
-             if response.status_code != 200:
+            if response.status_code != 200:
                 def_list.append(f"{word}: Definition not found.") 
                 continue
             else:
