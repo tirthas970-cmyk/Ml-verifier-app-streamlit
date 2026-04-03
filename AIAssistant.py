@@ -49,27 +49,29 @@ class Assistant:
 
         text = "No additional text found"
 
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
-            "Accept-Encoding": "gzip, deflate, br"
-        }
-
+# 1. Let DDGS handle headers internally for better success rates
         with DDGS() as ddg:
             try:
-        # Use keywords= and remove custom headers to let the lib handle it
+        # 2. 'keywords' is a mandatory named argument in many versions
                 results = ddg.text(keywords=ask_topic, region='wt-wt', max_results=5)
         
-        # Check if results is a list and has content
-                if results and len(results) > 0:
-            # Use .get() to avoid KeyError if the API field name changes
-                    text = f"Snippet: {results[0].get('body', results[0].get('snippet', ''))}\n"
+        # 3. 'results' is now a list. Check if it's not empty.
+                if results:
+            # 4. Use .get() to check for 'body' first, then 'snippet'
+                    first_result = results[0]
+                    snippet = first_result.get('body') or first_result.get('snippet') or ""
+            
+                    if snippet:
+                        text = f"Snippet: {snippet}\n"
+                    else:
+                        text = "Result found, but no text snippet was available."
                 else:
                     text = "No results found on DuckDuckGo."
             
             except Exception as e:
-                self.ds.log(f"DDG Search Error: {e}")
-                text = "DuckDuckGo search failed due to a connection error."
-    
+        # Log the specific error to your DataHandler for debugging
+                self.ds.log(f"DDG Search Error: {str(e)}")
+                text = f"DuckDuckGo search failed: {str(e)}"
         dataFrame = [wiki_info_user, text]
         result = cross_check_ML.LogisticRegPred(dataFrame)
         result_score = cross_check_ML.PredictionScore()
